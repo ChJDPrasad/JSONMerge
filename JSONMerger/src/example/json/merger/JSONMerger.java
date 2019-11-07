@@ -49,7 +49,8 @@ public class JSONMerger {
 			Scanner scan = new Scanner(System.in);
 			String input = scan.nextLine();
 			if(input.isEmpty()) {
-				String demo_input = "./src/example/json/datafiles data output 250";
+				String demo_input = "./src/example/json/datafiles data output 250"
+						+ "";
 				System.out.println("No input => Taking Demo input : " + demo_input);
 				input= demo_input;
 			}
