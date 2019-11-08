@@ -10,7 +10,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import org.json.JSONException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -40,19 +39,18 @@ public class JSONMerger {
 			in_base_name[0] = args[1];
 			out_base_name = args[2];
 			max_size = args[3];
-		} catch(ArrayIndexOutOfBoundsException e) {
+		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("No command line arguments given");
 			System.out.println(
 					"Enter <absolute folder path><space><input file base name><space><output file base name><space><output file base name><space><max file size (in bytes)>");
-			System.out.println("Demo input => ./src/example/json/datafiles data merge 250");
-			
+			System.out.println("Demo input => ./src/example/json/datafiles data merge 1250");
+
 			Scanner scan = new Scanner(System.in);
 			String input = scan.nextLine();
-			if(input.isEmpty()) {
-				String demo_input = "./src/example/json/datafiles data merge 250"
-						+ "";
+			if (input.isEmpty()) {
+				String demo_input = "./src/example/json/datafiles data merge 1250" + "";
 				System.out.println("No input => Taking Demo input : " + demo_input);
-				input= demo_input;
+				input = demo_input;
 			}
 			args = input.split("\\s");
 			folder_path = args[0];
@@ -79,7 +77,7 @@ public class JSONMerger {
 			JSONObject[] prevobj = new JSONObject[1];
 			for (File files : filein.listFiles(jsonFilefilter)) {
 //				Listing out all files in order
-				System.out.println("Input file name: "+files.getName());
+				System.out.println("Input file name: " + files.getName());
 				FileReader fin = new FileReader(files);
 //				Reading current file as JSON Object
 				JSONObject objin = (JSONObject) parser.parse(fin);
@@ -127,7 +125,7 @@ public class JSONMerger {
 						fileout.delete();
 						break;
 					}
-					
+
 					System.out.println("Output file name: " + fileout.getName());
 					System.out.println("File size: " + fileout.length());
 				}
