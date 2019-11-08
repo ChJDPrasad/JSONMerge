@@ -49,6 +49,7 @@ Functional requirements met:
 6. The solution generic so that any kind of JSON array can  
 	be merged. (e.g.: The root key "strikers" becomes "employees". The objects  
 	in the array carry fields like "name", "id", "designation", etc.)  
+
 Future amendments:  
 1. Improving the logic to accept any kind of JSON body (Object or Array)  
 2. Merging the JSON Object even if they have no similarities.  
