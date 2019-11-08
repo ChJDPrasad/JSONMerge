@@ -44,12 +44,12 @@ public class JSONMerger {
 			System.out.println("No command line arguments given");
 			System.out.println(
 					"Enter <absolute folder path><space><input file base name><space><output file base name><space><output file base name><space><max file size (in bytes)>");
-			System.out.println("Demo input => ./src/example/json/datafiles data output 250");
+			System.out.println("Demo input => ./src/example/json/datafiles data merge 250");
 			
 			Scanner scan = new Scanner(System.in);
 			String input = scan.nextLine();
 			if(input.isEmpty()) {
-				String demo_input = "./src/example/json/datafiles data output 250"
+				String demo_input = "./src/example/json/datafiles data merge 250"
 						+ "";
 				System.out.println("No input => Taking Demo input : " + demo_input);
 				input= demo_input;
@@ -64,7 +64,7 @@ public class JSONMerger {
 		FileFilter jsonFilefilter = new FileFilter() {
 			// Override accept method
 			public boolean accept(File file) {
-				// if the file extension is .log return true, else false
+				// if the file extension is of in_base_name and .json return true, else false
 				if (file.getName().endsWith(".json") && file.getName().startsWith(in_base_name[0])) {
 					return true;
 				}
@@ -78,10 +78,13 @@ public class JSONMerger {
 			boolean write = true;
 			JSONObject[] prevobj = new JSONObject[1];
 			for (File files : filein.listFiles(jsonFilefilter)) {
+//				Listing out all files in order
 				System.out.println("Input file name: "+files.getName());
 				FileReader fin = new FileReader(files);
+//				Reading current file as JSON Object
 				JSONObject objin = (JSONObject) parser.parse(fin);
 				if (prevobj[0] != null) {
+//					If a file exists for merging
 					JSONObject[] finalobj = new JSONObject[1];
 					finalobj[0] = new JSONObject();
 					prevobj[0].keySet().forEach(key -> {
@@ -96,6 +99,7 @@ public class JSONMerger {
 					});
 					prevobj[0] = finalobj[0];
 				} else {
+//					If this is the first file/single file no merge happens
 					prevobj[0] = objin;
 					counter++;
 					continue;
@@ -107,6 +111,7 @@ public class JSONMerger {
 
 				if (counter > 0 && write) {
 					try {
+//						Writing the merged json to file (out_base_name + counter + .json)
 						org.json.JSONObject tmp = new org.json.JSONObject(prevobj[0].toString());
 						fout.write(tmp.toString(4));
 					} catch (Exception e) {
@@ -117,7 +122,7 @@ public class JSONMerger {
 					fout.close();
 
 					if (fileout.length() > Long.parseLong(max_size)) {
-						
+//						Checking if the file exceeds the current specified limit (max_size)
 						write = false;
 						fileout.delete();
 						break;
@@ -127,9 +132,6 @@ public class JSONMerger {
 					System.out.println("File size: " + fileout.length());
 				}
 
-//				while(fileout.length() < Long.parseLong(max_size)) {
-//						
-//				}
 				counter++;
 			}
 
