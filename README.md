@@ -21,8 +21,11 @@ data3.json contains -
 { "name": "Gonzalo Higuain", "club": "Napoli" },  
 { "name": "Sunil Chettri", "club": "Bengaluru FC" }  
 ] }  
+Each merge creates a file with counter as suffix.  
+	eg. after two merges the output file will be merge2.json (here 2 represents number of merges)  
+	containing data of all the data files (data1.json data2.json data3.json)  
 A merge of these 3 files will generate a file with the following data.  
-merge1.json -  
+merge2.json -  
 {"strikers": [  
 { "name": "Alexis Sanchez", "club": "Manchester United" },  
 { "name": "Robin van Persie", "club": "Feyenoord" },  

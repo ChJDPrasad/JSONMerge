@@ -118,6 +118,9 @@ public class JSONMerger {
 					}
 					fout.flush();
 					fout.close();
+					if(counter - 1 > 0) {
+						new File(folder_path + "/" + out_base_name + (counter-1) + ".json").delete();
+					}
 
 					if (fileout.length() > Long.parseLong(max_size)) {
 //						Checking if the file exceeds the current specified limit (max_size)
